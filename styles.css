@@ -172,8 +172,9 @@ body {
 }
 
 /* ================== BOTÓN MÚSICA ================== */
+/* ================== BOTÓN MÚSICA ================== */
 .music-fab {
-  position: absolute;
+  position: fixed; /* 👈 flotante siempre visible */
   right: 16px;
   top: 16px;
   width: 44px;
@@ -186,7 +187,7 @@ body {
   justify-content: center;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.7);
   cursor: pointer;
-  z-index: 8;
+  z-index: 1001; /* encima de todo */
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 

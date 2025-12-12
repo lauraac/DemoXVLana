@@ -1,4 +1,8 @@
 // ================== CONFIGURACIÓN BÁSICA ==================
+// ====== ESTADO GLOBAL DE AUDIO ======
+let isMusicPlaying = false; // ¿está sonando el mp3?
+let userMutedMusic = false; // ¿la usuaria apagó el mp3 a propósito?
+let isVideoSoundOn = false; // ¿el video está con sonido?
 
 // Fecha objetivo para la cuenta regresiva (ajusta hora si quieres)
 const targetDate = new Date("2026-02-14T20:00:00"); // 8:00 pm
@@ -65,83 +69,152 @@ function setupScrollButton() {
 function setupMusicToggle() {
   const musicBtn = document.getElementById("playMusicBtn");
   const audio = document.getElementById("bgMusic");
+  const video = document.getElementById("introVideo");
   if (!musicBtn || !audio) return;
 
-  let isPlaying = false;
+  const markBtn = () => {
+    if (isMusicPlaying) {
+      musicBtn.classList.add("playing");
+    } else {
+      musicBtn.classList.remove("playing");
+    }
+  };
 
-  // Función común para reproducir
   const playMusic = async () => {
     try {
       await audio.play();
-      isPlaying = true;
-      musicBtn.classList.add("playing");
+      isMusicPlaying = true;
+      userMutedMusic = false; // porque la volvió a encender
+      markBtn();
     } catch (err) {
       console.warn("No se pudo reproducir la música:", err);
     }
   };
 
-  // ✅ Botón: prender / apagar música
+  const pauseMusic = () => {
+    audio.pause();
+    isMusicPlaying = false;
+    markBtn();
+  };
+
+  // ✅ Botón flotante ♪
   musicBtn.addEventListener("click", async () => {
-    try {
-      if (!isPlaying) {
-        await playMusic();
-      } else {
-        audio.pause();
-        isPlaying = false;
-        musicBtn.classList.remove("playing");
+    if (!isMusicPlaying) {
+      // Si elige música, apagamos el audio del video
+      if (video) {
+        video.muted = true;
       }
-    } catch (err) {
-      console.warn("No se pudo reproducir la música:", err);
+      isVideoSoundOn = false;
+      await playMusic();
+    } else {
+      pauseMusic();
+      userMutedMusic = true; // la usuaria dijo: NO quiero música
     }
   });
 
-  // ✅ Autoplay: primera interacción en la página
-  const startOnce = async () => {
-    if (isPlaying) return;
+  // ✅ Cuando entras a la invitación (sección "countdown"): auto-mp3
+  const firstSection = document.getElementById("countdown");
+  if (firstSection) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Solo auto-play si:
+            // - no está sonando música
+            // - la usuaria NO la apagó
+            // - el video NO está con sonido
+            if (!isMusicPlaying && !userMutedMusic && !isVideoSoundOn) {
+              playMusic();
+            }
+            observer.disconnect(); // solo la primera vez
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
 
-    try {
-      await playMusic();
-    } finally {
-      // Quitamos los listeners para que solo pase una vez
-      document.removeEventListener("click", startOnce);
-      document.removeEventListener("touchstart", startOnce);
-      document.removeEventListener("scroll", startOnce);
-    }
-  };
-
-  document.addEventListener("click", startOnce);
-  document.addEventListener("touchstart", startOnce, { passive: true });
-  document.addEventListener("scroll", startOnce);
+    observer.observe(firstSection);
+  }
 }
 
-// ================== VIDEO: ACTIVAR SONIDO AL TOCAR ==================
+// ================== VIDEO: CONTROLAR SONIDO Y MP3 ==================
 function setupVideoUnmute() {
   const video = document.getElementById("introVideo");
   const hint = document.getElementById("tapToUnmute");
+  const audio = document.getElementById("bgMusic");
+  const musicBtn = document.getElementById("playMusicBtn");
   if (!video) return;
 
-  let soundEnabled = false;
-
-  const enableSoundOnce = () => {
-    if (soundEnabled) return;
-    soundEnabled = true;
-
-    video.muted = false;
-    video.play().catch(() => {
-      // Ignorar error de autoplay si se diera
-    });
-
-    if (hint) {
-      hint.style.opacity = "0";
-      hint.style.transform = "translateY(10px)";
-      setTimeout(() => {
-        hint.style.display = "none";
-      }, 300);
+  const markBtn = () => {
+    if (isMusicPlaying) {
+      musicBtn?.classList.add("playing");
+    } else {
+      musicBtn?.classList.remove("playing");
     }
   };
 
-  video.addEventListener("click", enableSoundOnce);
-  video.addEventListener("touchstart", enableSoundOnce, { passive: true });
+  const playMusic = async () => {
+    if (!audio) return;
+    try {
+      await audio.play();
+      isMusicPlaying = true;
+      userMutedMusic = false;
+      markBtn();
+    } catch (err) {
+      console.warn("No se pudo reproducir la música:", err);
+    }
+  };
+
+  const pauseMusic = () => {
+    if (!audio) return;
+    audio.pause();
+    isMusicPlaying = false;
+    markBtn();
+  };
+
+  const hideHint = () => {
+    if (!hint) return;
+    hint.style.opacity = "0";
+    hint.style.transform = "translateY(10px)";
+    setTimeout(() => {
+      hint.style.display = "none";
+    }, 300);
+  };
+
+  const toggleVideoAudio = () => {
+    // Si NO estaba con sonido → encendemos audio del video y apagamos el mp3
+    if (!isVideoSoundOn) {
+      video.muted = false;
+      video.play().catch(() => {});
+      isVideoSoundOn = true;
+
+      // nunca deben sonar los 2:
+      pauseMusic();
+    } else {
+      // Si SÍ tenía sonido → lo muteamos
+      video.muted = true;
+      isVideoSoundOn = false;
+
+      // Solo encendemos el mp3 si la usuaria no lo apagó con el botón
+      if (!userMutedMusic) {
+        playMusic();
+      }
+    }
+
+    hideHint();
+  };
+
+  // Click/touch sobre el video
+  video.addEventListener("click", toggleVideoAudio);
+  video.addEventListener(
+    "touchstart",
+    (e) => {
+      // Para evitar dobles disparos en algunos navegadores
+      e.preventDefault();
+      toggleVideoAudio();
+    },
+    { passive: false }
+  );
 }
 
 // ================== ANIMACIONES EN SCROLL (REVEAL) ==================
