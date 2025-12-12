@@ -734,3 +734,17 @@ h2 {
   display: inline-flex;
   margin: 12px auto 0; /* centro horizontal */
 }
+/* ⭐ Centrar botón de Confirmar asistencia y Compartir por WhatsApp */
+#rsvp {
+  text-align: center;
+}
+
+#share {
+  text-align: center;
+}
+
+#rsvp .btn,
+#share .btn {
+  display: inline-flex; /* ya lo tienes así en .btn, pero no estorba */
+  margin-top: 12px;
+}
