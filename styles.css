@@ -70,6 +70,8 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
+  position: relative;
+  z-index: 1; /* 👈 video al fondo */
 }
 
 /* Capa de brillos dorados encima del video */
@@ -91,21 +93,7 @@ body {
   mix-blend-mode: screen;
   opacity: 0.9;
   animation: sparklePulse 8s ease-in-out infinite alternate;
-}
-
-@keyframes sparklePulse {
-  0% {
-    opacity: 0.7;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.02);
-  }
-  100% {
-    opacity: 0.8;
-    transform: scale(1.04);
-  }
+  z-index: 2; /* 👈 arriba del video, pero sin clics */
 }
 
 /* Overlay de textos en el video */
@@ -114,11 +102,12 @@ body {
   inset: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center; /* 👈 ahora centrado vertical */
   align-items: center;
   padding: 20px 18px 30px;
   text-align: center;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.65), transparent 55%);
+  z-index: 3; /* 👈 encima de todo */
 }
 
 .tagline {
@@ -716,4 +705,18 @@ h2 {
   100% {
     opacity: 0;
   }
+}
+
+/* 👇 Deja pasar los clics al video, pero el botón sigue siendo clickeable */
+.intro-overlay {
+  pointer-events: none; /* el overlay no bloquea */
+}
+
+.intro-overlay .scroll-btn,
+.intro-overlay .tap-unmute-pill,
+.intro-overlay .tagline,
+.intro-overlay .hero-name,
+.intro-overlay .hero-subtitle,
+.intro-overlay .hero-quote {
+  pointer-events: auto; /* estos SÍ se pueden tocar */
 }

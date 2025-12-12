@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupVideoUnmute();
   setupRevealOnScroll();
   setupWhatsappShare();
-  setupSparkles(); // ⭐ nuevo
+  // setupSparkles(); // la quitamos si no está definida
 });
 
 // ================== CUENTA REGRESIVA ==================
@@ -62,7 +62,6 @@ function setupScrollButton() {
   if (!btn || !nextSection) return;
 
   const goDown = (event) => {
-    // Por si acaso evita comportamientos raros
     event.preventDefault();
 
     const sectionTop = nextSection.getBoundingClientRect().top + window.scrollY;
@@ -73,10 +72,7 @@ function setupScrollButton() {
     });
   };
 
-  // Click en web / Android
   btn.addEventListener("click", goDown);
-
-  // Toque en cel (iPhone / Android)
   btn.addEventListener("touchstart", goDown, { passive: false });
 }
 
