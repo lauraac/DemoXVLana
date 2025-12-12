@@ -48,26 +48,45 @@ introVideo.muted = true;
 introVideo.volume = 1;
 introVideo.play().catch(() => {});
 
-// 🔊 ACTIVAR AUDIO (ESTE ES EL QUE SÍ FUNCIONA)
-btnEnableVideoAudio.addEventListener("click", async () => {
+btnEnableVideoAudio.addEventListener("click", async (e) => {
+  e.preventDefault();
+  e.stopPropagation(); // 👈 MUY IMPORTANTE EN MÓVIL
+
   try {
-    introVideo.muted = false; // 👈 quitar mute
-    await introVideo.play(); // 👈 MISMO CLICK
-    tapHint?.classList.add("hidden");
-    console.log("🔊 Audio activado");
+    introVideo.muted = false;
+    introVideo.volume = 1;
+    await introVideo.play();
+
+    // 👇 OCULTAR BOTÓN DESPUÉS DEL PRIMER TOQUE
+    btnEnableVideoAudio.classList.add("fade-out");
+
+    console.log("🔊 Audio activado y botón oculto");
   } catch (err) {
-    console.error("❌ Error audio:", err);
-    tapHint?.classList.remove("hidden");
+    console.error("❌ Error activando audio", err);
   }
 });
+function stopIntroAudio() {
+  const v = document.getElementById("introVideo");
+  if (!v) return;
+
+  // cortar audio inmediato
+  v.pause();
+  v.muted = true;
+  v.currentTime = 0; // opcional: reinicia el video para la próxima
+}
 
 // Saltar intro
-btnSkipIntro.addEventListener("click", () => {
-  enterMain();
+btnSkipIntro.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  stopIntroAudio(); // ✅ corta el audio del video si estaba sonando
+  enterMain(); // ✅ pasa al main
 });
 
 // Cuando termina el video
 introVideo.addEventListener("ended", () => {
+  stopIntroAudio(); // ✅ por seguridad
   enterMain();
 });
 
@@ -89,12 +108,66 @@ function tryPlayMusic() {
       showToast("Toca cualquier parte para activar música ✨");
     });
 }
+function enterMain() {
+  stopIntroAudio(); // ✅ por si acaso
+
+  const intro = document.getElementById("intro");
+  const main = document.getElementById("main");
+
+  intro.classList.add("hidden");
+  document.body.classList.remove("no-scroll");
+  main.classList.remove("hidden");
+
+  const bgMusic = document.getElementById("bgMusic");
+  if (bgMusic) {
+    bgMusic.volume = 0.9;
+    bgMusic.play().catch(() => {});
+  }
+}
+
+const bgMusic = document.getElementById("bgMusic");
+const musicToggle = document.getElementById("musicToggle");
+const musicText = document.getElementById("musicText");
+
+let musicOn = false;
 
 function updateMusicUI() {
-  if (!musicText) return;
-  musicText.textContent = musicOn ? "Música: ON" : "Música: OFF";
-  if (musicDot) musicDot.style.opacity = musicOn ? "1" : "0.45";
+  if (!musicText || !musicToggle) return;
+  musicText.textContent = musicOn ? "Música" : "Música";
+  musicToggle.classList.toggle("is-off", !musicOn);
 }
+
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicToggle");
+
+let musicEnabled = false;
+async function playMusic() {
+  try {
+    await music.play();
+    musicEnabled = true;
+    btn.classList.add("is-playing");
+    musicText.textContent = "Música";
+  } catch (e) {
+    // si el navegador bloquea autoplay, se activa cuando el usuario toque
+  }
+}
+
+function pauseMusic() {
+  music.pause();
+  btn.classList.remove("is-playing");
+}
+
+btn.addEventListener("click", async () => {
+  // primer toque: intenta reproducir
+  if (!musicEnabled || music.paused) {
+    await playMusic();
+  } else {
+    pauseMusic();
+  }
+});
+
+// Estado inicial UI
+updateMusicUI();
 
 function markUserInteracted() {
   if (userInteracted) return;

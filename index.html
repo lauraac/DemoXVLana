@@ -35,23 +35,24 @@
 
   <!-- ===== INTRO VIDEO (PRIMERO QUE SE VE) ===== -->
   <section id="intro" class="intro">
-    <video id="introVideo" src="./img/XV.mp4" playsinline webkit-playsinline muted></video>
-
+    <video id="introVideo" class="intro__video" src="./img/XV.mp4" playsinline webkit-playsinline muted></video>
 
     <div class="intro__hud">
       <button id="btnEnableVideoAudio" class="btn btn-glow btn-big">
         Activar audio
       </button>
 
+      <!-- ✅ AQUÍ VA el botón discreto -->
+      <button id="btnSkipIntro" class="btn btn-ghost btn-skip">
+        Saltar
+      </button>
 
-
-      <p id="tapHint" class="tap-hint hidden">
-        Toca para activar audio 🎧
-      </p>
+      <p id="tapHint" class="tap-hint hidden">Toca para activar audio 🎧</p>
     </div>
 
     <div class="intro__shade"></div>
   </section>
+
 
   <!-- ===== MAIN (PANTALLA PRINCIPAL) ===== -->
   <main id="main" class="main hidden">
@@ -65,19 +66,21 @@
         <span class="brand__name">Mis XV</span>
       </div>
 
-      <button id="musicToggle" class="mini-btn" aria-label="Música">
-        <span class="mini-btn__dot"></span>
-        <span id="musicText">Música</span>
-      </button>
+
+
     </header>
+    <audio id="bgMusic" src="audio/tu-cancion.mp3" preload="auto" loop></audio>
+
+    <button id="musicToggle" class="music-fab" aria-label="Música" type="button">
+      <span class="music-fab__dot" aria-hidden="true"></span>
+      <span id="musicText">Música</span>
+    </button>
 
     <!-- Hero con video secundario (tú lo pondrás) -->
     <section class="hero">
       <div class="hero__frame">
         <!-- Pon aquí tu segundo video (cambia ruta) -->
-        <video id="introVideo" src="./img/XV.mp4" playsinline webkit-playsinline muted></video>
-        >
-
+        <video id="mainVideo" class="hero__video" src="./img/XV.mp4" playsinline webkit-playsinline muted loop></video>
         <div class="hero__overlay">
           <h1 class="title">Mis XV Años</h1>
           <p class="subtitle">14 de Febrero de 2026</p>
