@@ -35,17 +35,15 @@
 
   <!-- ===== INTRO VIDEO (PRIMERO QUE SE VE) ===== -->
   <section id="intro" class="intro">
-    <video id="introVideo" class="intro__video" src="./img/XV.mp4" playsinline webkit-playsinline preload="auto"
-      muted></video>
+    <video id="introVideo" src="./img/XV.mp4" playsinline webkit-playsinline muted></video>
+
 
     <div class="intro__hud">
       <button id="btnEnableVideoAudio" class="btn btn-glow btn-big">
         Activar audio
       </button>
 
-      <button id="btnSkipIntro" class="btn btn-ghost btn-skip">
-        Saltar
-      </button>
+      <button id="btnEnableVideoAudio">Activar audio</button>
 
       <p id="tapHint" class="tap-hint hidden">
         Toca para activar audio 🎧
@@ -77,8 +75,8 @@
     <section class="hero">
       <div class="hero__frame">
         <!-- Pon aquí tu segundo video (cambia ruta) -->
-        <video id="mainVideo" class="hero__video" src="./img/XV.mp4" playsinline webkit-playsinline preload="metadata"
-          muted loop></video>
+        <video id="introVideo" src="./img/XV.mp4" playsinline webkit-playsinline muted></video>
+        >
 
         <div class="hero__overlay">
           <h1 class="title">Mis XV Años</h1>

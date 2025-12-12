@@ -35,7 +35,7 @@ function pad2(n) {
 }
 
 // ============================
-// Intro video logic
+// Intro video logic (ÚNICO Y CORRECTO)
 // ============================
 const intro = $("intro");
 const introVideo = $("introVideo");
@@ -43,35 +43,33 @@ const btnEnableVideoAudio = $("btnEnableVideoAudio");
 const btnSkipIntro = $("btnSkipIntro");
 const tapHint = $("tapHint");
 
-const main = $("main");
-const bgMusic = $("bgMusic");
-const musicToggle = $("musicToggle");
-const musicText = $("musicText");
-const musicDot = document.querySelector(".mini-btn__dot");
+// Reproducir intro muted (permitido)
+introVideo.muted = true;
+introVideo.volume = 1;
+introVideo.play().catch(() => {});
 
-// Main hero video (secundario)
-const mainVideo = $("mainVideo");
-
-let userInteracted = false;
-let musicOn = false;
-
-function enterMain() {
-  // Oculta intro
-  intro.classList.add("hidden");
-  document.body.classList.remove("no-scroll");
-
-  // Muestra main
-  main.classList.remove("hidden");
-
-  // Intenta autoplay música (algunos navegadores lo bloquean)
-  tryPlayMusic();
-
-  // Intenta reproducir el video principal (muted para permitir autoplay)
-  if (mainVideo) {
-    mainVideo.muted = true;
-    mainVideo.play().catch(() => {});
+// 🔊 ACTIVAR AUDIO (ESTE ES EL QUE SÍ FUNCIONA)
+btnEnableVideoAudio.addEventListener("click", async () => {
+  try {
+    introVideo.muted = false; // 👈 quitar mute
+    await introVideo.play(); // 👈 MISMO CLICK
+    tapHint?.classList.add("hidden");
+    console.log("🔊 Audio activado");
+  } catch (err) {
+    console.error("❌ Error audio:", err);
+    tapHint?.classList.remove("hidden");
   }
-}
+});
+
+// Saltar intro
+btnSkipIntro.addEventListener("click", () => {
+  enterMain();
+});
+
+// Cuando termina el video
+introVideo.addEventListener("ended", () => {
+  enterMain();
+});
 
 function tryPlayMusic() {
   if (!bgMusic) return;
