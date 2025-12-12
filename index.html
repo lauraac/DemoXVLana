@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Mis XV | Invitación Premium</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fuentes Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
+
+  <!-- PREVIEW PARA WHATSAPP / FACEBOOK -->
+  <meta property="og:title" content="Mis XV Años | 14 de febrero 2026" />
+  <meta property="og:description"
+    content="Acompáñame a celebrar mis XV años. Noche roja y dorada, llena de magia, música y mucho amor. 💫" />
+  <!-- Cambia esta imagen por la portada de la invitación -->
+  <meta property="og:image" content="https://tu-dominio.com/img/Misxv.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tu-dominio.com/xv/" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <!-- ================== INTRO VIDEO + HERO ================== -->
+    <header id="intro" class="intro-section">
+      <div class="video-wrapper">
+        <!-- Cambia el src del video -->
+        <video id="introVideo" class="intro-video" playsinline muted autoplay loop poster="./img/1.jpg">
+          <source src="./img/XV.mp4" type="video/mp4" />
+          Tu navegador no soporta video.
+        </video>
+
+        <!-- Capa de brillos/partículas premium -->
+        <div class="sparkle-layer"></div>
+
+        <!-- Overlay de texto sobre el video -->
+        <div class="intro-overlay">
+          <p class="tagline">Mis XV Años</p>
+          <h1 class="hero-name">Nombre de la Quinceañera</h1>
+          <p class="hero-subtitle">14 · Febrero · 2026</p>
+          <p class="hero-quote">
+            “Let the music play and hearts shine.” ♡
+          </p>
+
+          <button id="scrollDown" class="btn scroll-btn glow">
+            Ver invitación
+          </button>
+
+          <div id="tapToUnmute" class="tap-unmute-pill">
+            🎧 Toca el video para activar el sonido
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón flotante de música general (canción mp3) -->
+      <button id="playMusicBtn" class="music-fab floating">
+        <span class="music-icon">♪</span>
+      </button>
+
+      <!-- Cambia el src de la canción (mp3) -->
+      <audio id="bgMusic" loop>
+        <source src="./img/lana.mp3" type="audio/mpeg" />
+      </audio>
+    </header>
+
+    <main>
+      <!-- =============== CUENTA REGRESIVA =============== -->
+      <section id="countdown" class="card-section reveal">
+        <h2 class="section-title script-title">Cuenta regresiva</h2>
+        <p class="section-subtitle">
+          Falta muy poco para que vivamos una noche inolvidable. ✨
+        </p>
+
+        <div class="countdown-grid">
+          <div class="time-box">
+            <span id="cd-days" class="time-value">00</span>
+            <span class="time-label">Días</span>
+          </div>
+          <div class="time-box">
+            <span id="cd-hours" class="time-value">00</span>
+            <span class="time-label">Horas</span>
+          </div>
+          <div class="time-box">
+            <span id="cd-mins" class="time-value">00</span>
+            <span class="time-label">Minutos</span>
+          </div>
+          <div class="time-box">
+            <span id="cd-secs" class="time-value">00</span>
+            <span class="time-label">Segundos</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============== INFO PRINCIPAL =============== -->
+      <section id="info" class="card-section reveal">
+        <h2 class="section-title script-title">Te invito a mis XV</h2>
+
+        <p class="section-body">
+          Con mucha ilusión quiero invitarte a celebrar conmigo el inicio de una nueva etapa.
+          Tu compañía hará esta noche aún más especial. 🤍
+        </p>
+
+        <div class="event-details">
+          <div class="event-line">
+            <span class="event-label">Fecha:</span>
+            <span>14 de febrero de 2026</span>
+          </div>
+          <div class="event-line">
+            <span class="event-label">Hora:</span>
+            <span>08:00 p.m.</span>
+          </div>
+          <div class="event-line">
+            <span class="event-label">Lugar:</span>
+            <span>Nombre del salón / dirección completa</span>
+          </div>
+          <div class="event-line">
+            <span class="event-label">Dress code:</span>
+            <span>Elegante · Toques rojos y dorados bienvenidos ✨</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============== SECCIÓN ESTILO LANA DEL REY (MOOD) =============== -->
+      <section id="mood" class="card-section mood-section reveal">
+        <h2 class="section-title script-title">Vibes de la noche</h2>
+        <p class="section-body">
+          Una noche mágica, romántica y dramática, al estilo Lana del Rey:
+          luces tenues, brillo dorado, rojo intenso y mucha música para cantar y bailar.
+        </p>
+
+        <div class="mood-gallery">
+          <!-- Reemplaza estas imágenes por tus gifs/fotos -->
+          <figure class="mood-card hover-zoom">
+            <img src="./img/1.jpg" alt="Detalle decorativo rojo y dorado" />
+          </figure>
+          <figure class="mood-card hover-zoom">
+            <img src="./img/lana.gif" alt="Brillos y luces doradas" />
+          </figure>
+          <figure class="mood-card hover-zoom">
+            <img src="./img/2.jpg" alt="Ambiente romántico" />
+          </figure>
+        </div>
+      </section>
+
+      <!-- =============== MESA DE REGALOS PREMIUM =============== -->
+      <section id="gifts" class="card-section reveal">
+        <h2 class="section-title script-title">Mesa de regalos</h2>
+        <p class="section-body">
+          Tu presencia es lo más importante. Pero si deseas tener un detalle conmigo,
+          te comparto algunas opciones de regalo. 🎁
+        </p>
+
+        <div class="gift-grid">
+          <!-- Tarjeta / transferencia -->
+          <article class="gift-card hover-zoom">
+            <h3 class="gift-title">Transferencia / Depósito</h3>
+            <p class="gift-text">
+              Banco: <strong>Nombre del banco</strong><br />
+              Cuenta: <strong>0000 0000 0000</strong><br />
+              CLABE: <strong>000 000 000 000</strong><br />
+              Titular: <strong>Nombre de mamá/papá</strong>
+            </p>
+          </article>
+
+          <!-- Tienda 1 -->
+          <article class="gift-card hover-zoom">
+            <h3 class="gift-title">Mesa de regalos Liverpool</h3>
+            <p class="gift-text">
+              Número de evento: <strong>12345678</strong>
+            </p>
+            <a href="https://www.liverpool.com.mx/tienda/home" target="_blank" rel="noopener"
+              class="btn secondary small">
+              Ver mesa
+            </a>
+          </article>
+
+          <!-- Tienda 2 -->
+          <article class="gift-card hover-zoom">
+            <h3 class="gift-title">Amazon Wishlist</h3>
+            <p class="gift-text">
+              Encuentra algunos detalles especiales que elegí con mucho cariño.
+            </p>
+            <a href="https://www.amazon.com.mx/" target="_blank" rel="noopener" class="btn secondary small">
+              Ver lista
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <!-- =============== CONFIRMACIÓN (GOOGLE SHEETS / FORM) =============== -->
+      <section id="rsvp" class="card-section reveal">
+        <h2 class="section-title script-title">Confirmación de asistencia</h2>
+        <p class="section-body">
+          Por favor ayúdame confirmando tu asistencia para poder organizar todo con amor y detalle. 💌
+        </p>
+
+        <!-- Cambia el href por el link de tu formulario de Google (que guarda en Sheets) -->
+        <a href="https://docs.google.com/forms/d/XXXXXXXXXXXX/viewform" target="_blank" rel="noopener"
+          class="btn primary glow">
+          Confirmar asistencia
+        </a>
+
+        <p class="section-note">
+          Puedes confirmar por este formulario o escribiendo a mis papás por WhatsApp.
+        </p>
+      </section>
+
+      <!-- =============== MAPA + WAZE =============== -->
+      <section id="mapa" class="card-section reveal">
+        <h2 class="section-title script-title">¿Cómo llegar?</h2>
+        <p class="section-body">
+          La fiesta será en <strong>Nombre del Salón</strong>. Toca uno de los botones para abrir la ruta.
+        </p>
+
+        <div class="map-buttons">
+          <!-- Reemplaza el href con la URL exacta de Google Maps -->
+          <a href="https://www.google.com/maps/place/..." target="_blank" rel="noopener" class="btn secondary">
+            Abrir en Google Maps
+          </a>
+
+          <!-- Reemplaza lat,lng en el URL de Waze -->
+          <a href="https://waze.com/ul?ll=19.000000,-99.000000&navigate=yes" target="_blank" rel="noopener"
+            class="btn secondary">
+            Abrir en Waze
+          </a>
+        </div>
+
+        <!-- Mapa embebido, cambia el src por el iframe que te da Google Maps -->
+        <div class="map-embed hover-glow">
+          <iframe src="https://www.google.com/maps/embed?pb=XXXX" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </section>
+
+      <!-- =============== GALERÍA / RECUERDOS =============== -->
+      <section id="galeria" class="card-section reveal">
+        <h2 class="section-title script-title">Un poquito de mí</h2>
+        <p class="section-body">
+          Aquí puedes ver algunos momentos y detalles especiales antes de la gran noche.
+        </p>
+
+        <div class="gallery-grid">
+          <!-- Cambia por tus fotos / gifs -->
+          <figure class="gallery-item hover-zoom">
+            <img src="./img/1.jpg" alt="Foto previa" />
+          </figure>
+          <figure class="gallery-item hover-zoom">
+            <img src="./img/2.jpg" alt="Foto previa" />
+          </figure>
+          <figure class="gallery-item hover-zoom">
+            <img src="./img/3.jpg" alt="Foto previa" />
+          </figure>
+          <figure class="gallery-item hover-zoom">
+            <img src="./img/lana2.gif" alt="Gif divertido" />
+          </figure>
+        </div>
+      </section>
+
+      <!-- =============== BOTÓN COMPARTIR WHATSAPP =============== -->
+      <section id="share" class="card-section reveal">
+        <h2 class="section-title script-title">Comparte la invitación</h2>
+        <p class="section-body">
+          Si quieres pasarle la invitación a alguien más de la familia, puedes compartirla por WhatsApp.
+        </p>
+
+        <!-- Cambia la URL de la invitación en "text=" -->
+        <a id="shareWhatsappBtn" href="#" target="_blank" rel="noopener" class="btn primary small glow">
+          Compartir por WhatsApp
+        </a>
+      </section>
+    </main>
+
+    <!-- =============== FOOTER DISCRETO CON TUS DATOS =============== -->
+    <footer class="footer">
+      <p class="footer-text">
+        Invitación digital premium ·
+        <span class="brand">Invitaciones LAC</span>
+      </p>
+      <!-- Cambia el número de WhatsApp y el texto -->
+      <a href="https://wa.me/52XXXXXXXXXX?text=Hola%20Lau,%20quiero%20informes%20de%20invitaciones%20digitales"
+        target="_blank" rel="noopener" class="footer-link">
+        Contáctame por WhatsApp
+      </a>
+    </footer>
+    <div id="sparkles-layer"></div>
+  </div> <!-- fin .app-shell -->
+  <!-- ⭐ Destellos de brillo en toda la pantalla (no bloquean nada) -->
+  <div class="brillos-container">
+    <!-- Cambia la ruta de la imagen por tu brillo/estrella -->
+    <img src="./img/brillo.png" alt="" class="brillo b1" />
+    <img src="./img/brillo.png" alt="" class="brillo b2" />
+    <img src="./img/brillo.png" alt="" class="brillo b3" />
+    <img src="./img/brillo.png" alt="" class="brillo b4" />
+    <img src="./img/brillo.png" alt="" class="brillo b5" />
+    <img src="./img/brillo.png" alt="" class="brillo b6" />
+  </div>
+  </div> <!-- fin .app-shell -->
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
