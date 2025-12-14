@@ -413,13 +413,19 @@ img {
 
 .title {
   font-family: "Great Vibes", cursive;
+  font-size: 58px; /* impactante */
   font-weight: 400;
   text-align: center;
+  line-height: 1;
   margin: 0;
-  font-size: 52px;
-  line-height: 0.95;
-  text-shadow: 0 12px 40px rgba(0, 0, 0, 0.65);
+
+  /* 🔥 rojo intenso elegante */
+  color: var(--red2);
+
+  text-shadow: 0 6px 22px rgba(138, 0, 35, 0.75),
+    0 0 34px rgba(255, 43, 106, 0.55);
 }
+
 .subtitle {
   margin: 0;
   text-align: center;
@@ -948,4 +954,29 @@ img {
 /* Quitar barra superior */
 .topbar {
   display: none;
+}
+
+.section-title {
+  font-family: "Great Vibes", cursive;
+  font-size: 36px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 1px;
+
+  color: #fff;
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+}
+
+.section-title {
+  font-family: "Great Vibes", cursive;
+  font-size: 36px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 1px;
+
+  /* 🔥 rojo intenso elegante */
+  color: var(--red2);
+
+  text-shadow: 0 4px 18px rgba(138, 0, 35, 0.65),
+    0 0 28px rgba(255, 43, 106, 0.45);
 }
