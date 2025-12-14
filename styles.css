@@ -18,6 +18,9 @@
   --radius: 22px;
 
   --max: 720px;
+  --text-primary: #f6e9ee; /* marfil rosado */
+  --text-secondary: #e6cfd8; /* rosa humo */
+  --text-muted: #c9aab5; /* detalles */
 }
 
 * {
@@ -244,6 +247,7 @@ img {
   box-shadow: 0 12px 30px rgba(255, 43, 106, 0.28),
     0 18px 60px rgba(138, 0, 35, 0.22);
   overflow: hidden;
+  color: #09090b;
 }
 .btn-glow::before {
   content: "";
