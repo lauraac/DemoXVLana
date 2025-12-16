@@ -1265,3 +1265,220 @@ img {
     opacity: 0;
   }
 }
+/* ===== Corazón globo flotante ===== */
+.heart-balloon {
+  position: fixed;
+  left: 16px;
+  bottom: 88px; /* para que no choque con el botón de música */
+  z-index: 9999;
+
+  width: 64px;
+  height: 64px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+
+  transform: translateZ(0);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  animation: heartFloat 3.2s ease-in-out infinite;
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.45));
+}
+
+.heart-balloon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* “cuerdita” del globo */
+.heart-balloon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 62px;
+  width: 2px;
+  height: 32px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55),
+    rgba(255, 255, 255, 0.05)
+  );
+  opacity: 0.7;
+  border-radius: 999px;
+}
+
+/* flotar */
+@keyframes heartFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(2deg);
+  }
+}
+
+/* al “reventar” */
+.heart-balloon.pop {
+  animation: none;
+  pointer-events: none;
+}
+
+.heart-balloon.pop img {
+  animation: heartPop 520ms ease forwards;
+}
+
+@keyframes heartPop {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+  55% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.2);
+    opacity: 0;
+    filter: blur(1px);
+  }
+}
+
+/* ===== Partículas ===== */
+.heart-particle {
+  position: fixed;
+  z-index: 10000;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: 0.95;
+  background: rgba(255, 43, 106, 0.9); /* usa tu rojo */
+  box-shadow: 0 0 14px rgba(255, 43, 106, 0.35);
+  transform: translate(-50%, -50%);
+  animation: particleFly 720ms ease-out forwards;
+}
+
+@keyframes particleFly {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
+      scale(0.6);
+    opacity: 0;
+  }
+}
+
+/* ===== Corazón globo flotante (NO estorba) ===== */
+.heart-balloon {
+  position: fixed;
+  left: 16px;
+  top: 120px; /* ahora se posiciona con JS (top/left) */
+  z-index: 9999;
+
+  width: 64px;
+  height: 64px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+
+  transform: translateZ(0);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  animation: heartFloat 3.2s ease-in-out infinite;
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.45));
+}
+
+.heart-balloon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* cuerdita */
+.heart-balloon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 62px;
+  width: 2px;
+  height: 32px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55),
+    rgba(255, 255, 255, 0.05)
+  );
+  opacity: 0.7;
+  border-radius: 999px;
+}
+
+@keyframes heartFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(2deg);
+  }
+}
+
+/* Pop */
+.heart-balloon.pop {
+  animation: none;
+  pointer-events: none;
+}
+.heart-balloon.pop img {
+  animation: heartPop 520ms ease forwards;
+}
+@keyframes heartPop {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  55% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+}
+
+/* Partículas */
+.heart-particle {
+  position: fixed;
+  z-index: 10000;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: 0.95;
+  background: rgba(255, 43, 106, 0.9);
+  box-shadow: 0 0 14px rgba(255, 43, 106, 0.35);
+  transform: translate(-50%, -50%);
+  animation: particleFly 720ms ease-out forwards;
+}
+@keyframes particleFly {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
+      scale(0.6);
+    opacity: 0;
+  }
+}

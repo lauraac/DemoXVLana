@@ -509,18 +509,101 @@ window.addEventListener("load", () => {
   });
 })();
 
-// ===== Corazón globo: flota y explota al tocar =====
-(function heartBalloonFX() {
+// ===== Corazón globo: aparece en zonas seguras (no tapa el hero/video ni botones) =====
+(function heartBalloonSafe() {
   const btn = document.getElementById("heartBalloon");
   if (!btn) return;
 
+  const SAFE_MARGIN = 12; // margen general
+  const SIZE = 64; // debe coincidir con el CSS
+  const MOVE_EVERY_MS = 5200;
+
+  // elementos que NO debe tapar
+  const blockersSelectors = [
+    ".hero", // todo el hero (incluye video)
+    "#mainVideo", // por si cambia
+    ".hero__cta", // botones del hero
+    ".topbar", // barra superior
+    "#musicToggle", // botón música flotante
+    "#intro", // por si está visible
+  ];
+
+  function rect(el) {
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    // ignorar elementos no visibles / sin tamaño
+    if (r.width === 0 || r.height === 0) return null;
+    return r;
+  }
+
+  function getBlockRects() {
+    const rects = [];
+    blockersSelectors.forEach((sel) => {
+      document.querySelectorAll(sel).forEach((el) => {
+        const r = rect(el);
+        if (r) rects.push(r);
+      });
+    });
+    return rects;
+  }
+
+  function intersects(a, b) {
+    return !(
+      a.right < b.left ||
+      a.left > b.right ||
+      a.bottom < b.top ||
+      a.top > b.bottom
+    );
+  }
+
+  function pickSafePosition() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    // área donde puede aparecer el globo
+    const minX = SAFE_MARGIN;
+    const maxX = vw - SIZE - SAFE_MARGIN;
+    const minY = SAFE_MARGIN + 60; // evitar top
+    const maxY = vh - SIZE - SAFE_MARGIN - 20; // evitar fondo
+
+    const blocks = getBlockRects();
+
+    // intentos random
+    for (let i = 0; i < 60; i++) {
+      const x = minX + Math.random() * (maxX - minX);
+      const y = minY + Math.random() * (maxY - minY);
+
+      const candidate = {
+        left: x,
+        top: y,
+        right: x + SIZE,
+        bottom: y + SIZE,
+      };
+
+      // si choca con algo, intenta otra
+      const collision = blocks.some((b) => intersects(candidate, b));
+      if (!collision) return { x, y };
+    }
+
+    // fallback: esquina superior izquierda segura
+    return { x: minX, y: minY + 80 };
+  }
+
+  function moveBalloon() {
+    // solo si está visible y no reventado
+    if (btn.classList.contains("pop")) return;
+
+    const { x, y } = pickSafePosition();
+    btn.style.left = `${Math.round(x)}px`;
+    btn.style.top = `${Math.round(y)}px`;
+  }
+
   function spawnParticles(x, y) {
-    const count = 18; // más = más explosión
+    const count = 18;
     for (let i = 0; i < count; i++) {
       const p = document.createElement("span");
       p.className = "heart-particle";
 
-      // dispersión aleatoria
       const angle = Math.random() * Math.PI * 2;
       const power = 50 + Math.random() * 90;
       const dx = Math.cos(angle) * power;
@@ -531,40 +614,56 @@ window.addEventListener("load", () => {
       p.style.setProperty("--dx", dx.toFixed(1) + "px");
       p.style.setProperty("--dy", dy.toFixed(1) + "px");
 
-      // variar tamaños
       const size = 6 + Math.random() * 7;
       p.style.width = size + "px";
       p.style.height = size + "px";
 
-      // variar tonos (rojo/rosita/blanco)
       const r = Math.random();
       if (r < 0.2) p.style.background = "rgba(255,255,255,0.85)";
       else if (r < 0.45) p.style.background = "rgba(255, 43, 106, 0.85)";
       else p.style.background = "rgba(138, 0, 35, 0.85)";
 
       document.body.appendChild(p);
-
-      // limpiar
       setTimeout(() => p.remove(), 800);
     }
   }
 
-  btn.addEventListener("click", () => {
+  // Reventar
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (btn.classList.contains("pop")) return;
 
-    // vibra si se puede
-    if (navigator.vibrate) navigator.vibrate([30, 30, 40]);
+    if (navigator.vibrate) navigator.vibrate([25, 25, 40]);
 
-    const rect = btn.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
+    const r = btn.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
 
     btn.classList.add("pop");
     spawnParticles(cx, cy);
 
-    // (opcional) que reaparezca después
+    // reaparece y se reubica
     setTimeout(() => {
       btn.classList.remove("pop");
-    }, 1800);
+      moveBalloon();
+    }, 1700);
   });
+
+  // mover cada cierto tiempo, y al resize/orientación
+  let timer = null;
+  function start() {
+    moveBalloon();
+    clearInterval(timer);
+    timer = setInterval(moveBalloon, MOVE_EVERY_MS);
+  }
+
+  window.addEventListener("resize", () => {
+    // espera poquito para que el layout se acomode
+    clearTimeout(window.__heartResizeTO);
+    window.__heartResizeTO = setTimeout(start, 250);
+  });
+
+  // iniciar cuando ya cargó (por tamaños correctos del hero/video)
+  window.addEventListener("load", start);
 })();
