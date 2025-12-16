@@ -244,7 +244,8 @@
       </div>
     </section>
 
-    <section class="card">
+    <section class="card" id="blessing">
+
       <h2 class="section-title">Con la bendición de Dios</h2>
 
       <div class="info-grid">
@@ -255,7 +256,13 @@
             <p class="info-val">Leslie Guerrero</p>
           </div>
         </div>
-
+        <div class="info-item">
+          <div class="info-ico">👨‍👧</div>
+          <div>
+            <p class="info-label">Tío (figura paterna)</p>
+            <p class="info-val">Víctor Torres</p>
+          </div>
+        </div>
         <div class="info-item">
           <div class="info-ico">💖</div>
           <div>
@@ -292,10 +299,10 @@
 
     </section>
 
-    <section class="card">
+    <section class="card words-mom">
       <h2 class="section-title">Palabras de mamá</h2>
 
-      <p style="line-height:1.7; font-size:14px;">
+      <p class="mom-text">
         Querida hija mía.<br /><br />
 
         Mis 3 kilos 100 gramos y 51 cm de amor.<br /><br />
@@ -313,9 +320,22 @@
         Y cuando sientas que el mundo se te cae encima, recuerda que me tienes a mí
         para ir en contra del mundo si es necesario.<br /><br />
 
-        Te amo inmensamente, mi pequeñita. ❤️<br /><br />
+        <span class="mom-sign">
+          Te amo inmensamente, mi pequeñita. ❤️<br />
+          Con amor, mamá
+        </span>
+      </p>
+    </section>
 
-        <strong>Con amor, mamá</strong>
+
+    <section class="card" id="agradecimiento">
+      <h2 class="section-title">Agradecimiento especial</h2>
+
+      <p style="line-height:1.7; font-size:14px; text-align:center;">
+        A mi abuelita, gracias por tu amor incondicional, por cuidarme, apoyarme y estar siempre presente en mi
+        vida.<br /><br />
+        Tu ejemplo, tu cariño y tus enseñanzas viven en mi corazón hoy y siempre.<br /><br />
+        Con todo mi amor 💖
       </p>
     </section>
 
@@ -323,7 +343,7 @@
       <h2 class="section-title">Galería</h2>
 
       <p class="note" style="text-align:center;margin-top:-6px;">
-        De bebé ✨ a casi 15 años 💖
+        Cada etapa, un recuerdo; cada recuerdo, un sueño ✨
       </p>
 
       <div class="gallery-pro" aria-label="Galería cronológica">
@@ -379,19 +399,17 @@
       </div>
     </section>
 
-
-
-    <!-- Itinerario -->
     <section class="card" id="itinerary">
       <h2 class="section-title">Itinerario</h2>
 
       <div class="timeline">
+
         <div class="tl-item">
           <div class="tl-dot"></div>
           <div class="tl-card">
             <p class="tl-time">8:00 PM</p>
-            <p class="tl-title">Recepción</p>
-            <p class="tl-desc">Bienvenida & fotos ✨</p>
+            <p class="tl-title">Entrada al salón</p>
+            <p class="tl-desc">Bienvenida ✨</p>
           </div>
         </div>
 
@@ -399,21 +417,41 @@
           <div class="tl-dot"></div>
           <div class="tl-card">
             <p class="tl-time">9:00 PM</p>
-            <p class="tl-title">Vals</p>
-            <p class="tl-desc">Momento especial ❤️</p>
+            <p class="tl-title">Sorpresa</p>
+            <p class="tl-desc">Momento especial 🎉</p>
           </div>
         </div>
 
         <div class="tl-item">
           <div class="tl-dot"></div>
           <div class="tl-card">
-            <p class="tl-time">10:00 PM</p>
-            <p class="tl-title">Fiesta</p>
-            <p class="tl-desc">A bailar toda la noche 💃</p>
+            <p class="tl-time">10:30 PM</p>
+            <p class="tl-title">Sorpresa</p>
+            <p class="tl-desc">¡Otra sorpresa! ✨</p>
           </div>
         </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <p class="tl-time">11:30 PM</p>
+            <p class="tl-title">Vals familiar y sorpresa</p>
+            <p class="tl-desc">Un momento inolvidable 💃</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <p class="tl-time">12:30 AM</p>
+            <p class="tl-title">Batucada</p>
+            <p class="tl-desc">¡A disfrutar! 🥁</p>
+          </div>
+        </div>
+
       </div>
     </section>
+
 
     <!-- Dress code -->
     <section class="card" id="dresscode">
@@ -496,11 +534,6 @@
         </label>
 
         <label class="field">
-          <span>Número de invitados</span>
-          <input name="guests" type="number" min="1" max="10" value="1" required />
-        </label>
-
-        <label class="field">
           <span>Mensaje para la quinceañera</span>
           <textarea name="message" rows="3" placeholder="Escribe algo bonito..."></textarea>
         </label>
@@ -536,7 +569,7 @@
     <!-- ===== Corazón globo flotante ===== -->
     <!-- ===== Corazón globo flotante ===== -->
     <button id="heartBalloon" class="heart-balloon" type="button" aria-label="Corazón globo">
-      <img src="img/globo.png" alt="Corazón" />
+      <img src="img/Allison.png" alt="Corazón" />
     </button>
 
 

@@ -354,7 +354,6 @@ $("rsvpForm")?.addEventListener("submit", async (e) => {
     name: form.name.value.trim(),
     phone: form.phone.value.trim(),
     attending: form.attending.value,
-    guests: form.guests.value,
     message: form.message.value.trim(),
     createdAt: new Date().toISOString(),
   };
@@ -405,6 +404,10 @@ window.addEventListener("load", () => {
   const btnPrev = document.querySelector("#gallery .gpro-prev");
   const btnNext = document.querySelector("#gallery .gpro-next");
   if (!track || !caption || !dotsWrap || !btnPrev || !btnNext) return;
+  // ✅ Evitar que tocar el carrusel dispare el handler global (no romper video/audio)
+  ["pointerdown", "touchstart", "mousedown", "click"].forEach((evt) => {
+    track.addEventListener(evt, (e) => e.stopPropagation(), { passive: true });
+  });
 
   const slides = Array.from(track.querySelectorAll(".gpro-slide"));
   const total = slides.length;
