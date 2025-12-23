@@ -1936,3 +1936,33 @@ img {
   font-size: 20px;
   opacity: 0.8;
 }
+
+/* ===== FOOTER ===== */
+.footer {
+  margin-top: 28px;
+  padding: 16px 12px 28px;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.footer__line {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(255, 247, 251, 0.7);
+}
+
+.footer__small {
+  margin: 10px 0 0;
+  font-size: 12px;
+}
+
+.footer__small a {
+  color: #ff2b6a;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(255, 43, 106, 0.45);
+  padding-bottom: 2px;
+}
+
+.footer__small a:hover {
+  filter: brightness(1.15);
+}
