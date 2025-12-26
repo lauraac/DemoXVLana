@@ -1966,3 +1966,109 @@ img {
 .footer__small a:hover {
   filter: brightness(1.15);
 }
+/* ===== MESA DE REGALOS CON LOGOS ===== */
+
+.gift-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.gift-card {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: center;
+  gap: 14px;
+
+  padding: 16px;
+  border-radius: 22px;
+  text-decoration: none;
+  color: var(--text);
+
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(14px);
+
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.gift-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 55px rgba(255, 43, 106, 0.35);
+}
+
+/* contenedor del logo */
+.gift-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+
+  display: grid;
+  place-items: center;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 43, 106, 0.25),
+    rgba(138, 0, 35, 0.25)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 22px rgba(255, 43, 106, 0.35);
+}
+
+/* imagen del logo */
+.gift-logo img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+}
+
+/* texto */
+.gift-title {
+  margin: 0;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.gift-sub {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: rgba(255, 247, 251, 0.75);
+}
+
+.gift-arrow {
+  font-size: 20px;
+  color: var(--red2);
+}
+
+/* brillo animado */
+.glow-hover::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.12) 45%,
+    rgba(255, 43, 106, 0.28) 55%,
+    transparent 70%
+  );
+  opacity: 0;
+}
+
+.glow-hover:hover::before {
+  opacity: 1;
+  animation: giftShine 1.2s ease forwards;
+}
+
+@keyframes giftShine {
+  from {
+    transform: translateX(-30%);
+  }
+  to {
+    transform: translateX(30%);
+  }
+}
